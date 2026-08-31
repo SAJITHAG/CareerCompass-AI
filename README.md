@@ -10,7 +10,7 @@ guided assessment flow and a grounded AI chat assistant.
 - **Frontend:** React + Vite, React Router, Axios
 - **Backend:** Node.js + Express
 - **Database:** MongoDB Atlas + Mongoose
-- **AI:** Google Gemini (`gemini-3.6-flash`) — used only to *explain* data already retrieved from MongoDB, never to invent it
+- **AI:** Google Gemini (`gemini-3.5-flash`) — used only to *explain* data already retrieved from MongoDB, never to invent it
 - **Dataset:** [Coursera Course Data](https://www.kaggle.com/datasets/azraimohamad/coursera-course-data) (623 real courses)
 
 ## Project Structure
