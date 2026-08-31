@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+:root {
+  /* Color — deep indigo/violet AI palette, not the generic terracotta/near-black defaults */
+  --color-bg: #F7F7FC;
+  --color-bg-deep: #F1F1FB;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FCFBFF;
+  --color-primary: #4F46E5;
+  --color-primary-dark: #3730A3;
+  --color-accent: #7C3AED;
+  --color-accent-light: #A78BFA;
+  --color-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  --color-gradient-vivid: linear-gradient(135deg, #6366F1 0%, #9333EA 55%, #C026D3 100%);
+  --color-text: #1E1B3A;
+  --color-text-muted: #635F80;
+  --color-border: #E6E4F3;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+
+  /* Match-tier colors for career match circles / cards */
+  --color-match-high: #10B981;
+  --color-match-mid: #7C3AED;
+  --color-match-low: #F59E0B;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Layout */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  /* Elevation — a small scale, used consistently instead of ad-hoc shadows */
+  --shadow-xs: 0 1px 2px rgba(30, 27, 58, 0.05);
+  --shadow-card: 0 2px 8px rgba(30, 27, 58, 0.06), 0 1px 2px rgba(30, 27, 58, 0.04);
+  --shadow-raised: 0 16px 40px rgba(79, 70, 229, 0.16), 0 4px 10px rgba(30, 27, 58, 0.05);
+  --shadow-glow: 0 0 0 1px rgba(124, 58, 237, 0.06), 0 8px 28px rgba(124, 58, 237, 0.22);
+
+  --sidebar-width: 240px;
+
+  --color-scheme: light;
+  color-scheme: light;
+}
+
+/* Dark mode — toggled by adding data-theme="dark" to <html> (see ThemeContext).
+   Same token names as :root so every component that already reads a
+   --color-* var repaints automatically; nothing else needs to change. */
+html[data-theme="dark"] {
+  --color-bg: #0B0A16;
+  --color-bg-deep: #100E1F;
+  --color-surface: #16142A;
+  --color-surface-raised: #1B1832;
+  --color-primary: #818CF8;
+  --color-primary-dark: #6366F1;
+  --color-accent: #A78BFA;
+  --color-accent-light: #C4B5FD;
+  --color-gradient: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  --color-gradient-vivid: linear-gradient(135deg, #818CF8 0%, #C026D3 55%, #E879F9 100%);
+  --color-text: #F2F1FA;
+  --color-text-muted: #A8A4C4;
+  --color-border: #2A2745;
+  --color-success: #34D399;
+  --color-warning: #FBBF24;
+  --color-danger: #F87171;
+
+  --color-match-high: #34D399;
+  --color-match-mid: #A78BFA;
+  --color-match-low: #FBBF24;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-raised: 0 16px 40px rgba(129, 140, 248, 0.22), 0 4px 10px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 0 1px rgba(167, 139, 250, 0.14), 0 8px 28px rgba(167, 139, 250, 0.32);
+
+  color-scheme: dark;
+}
+
+html,
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--color-text);
+}
+
+/* Soft layered gradient mesh — used behind hero/section backgrounds instead
+   of a flat fill, to give the indigo/violet palette some atmosphere without
+   resorting to a busy pattern or animation. Static; safe under reduced-motion. */
+.bg-mesh {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-mesh::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(560px circle at 12% 8%, rgba(124, 58, 237, 0.10), transparent 60%),
+    radial-gradient(480px circle at 88% 18%, rgba(79, 70, 229, 0.10), transparent 55%),
+    radial-gradient(420px circle at 50% 100%, rgba(167, 139, 250, 0.08), transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Entrance for the match-circle signature element — a single deliberate
+   moment rather than motion sprinkled everywhere. Instant under
+   reduced-motion via the override above. */
+@keyframes match-circle-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* AI orb hero visual — slow pulse on the core glow */
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+/* Orbital rings, rotating at different speeds/directions */
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Gentle floating for the info cards around the orb */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Small particles drifting around the orb */
+@keyframes particle-drift {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(6px, -10px); opacity: 0.9; }
+  100% { transform: translate(0, 0); opacity: 0.3; }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------------
+   Dashboard (Phase 1 — Premium UI/UX Foundation)
+   A handful of small, reusable pieces so the dashboard doesn't have to
+   fall back on a grid of identical stat cards: a shimmer skeleton for
+   loading, a responsive layout grid, and a subtle "next action" glow.
+--------------------------------------------------------------------- */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Recording indicator for the chat voice-input mic button */
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.28); }
+  50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    100deg,
+    var(--color-bg-deep) 30%,
+    var(--color-border) 45%,
+    var(--color-bg-deep) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.dash-stat-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dash-eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 6px;
+}
+
+.dash-other-matches {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 900px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+}
